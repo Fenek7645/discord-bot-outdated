@@ -34,12 +34,12 @@ class sistem(commands.Cog):
             emb.set_footer(text = f'{self.bot.user.name} © 2021', icon_url = self.bot.user.avatar_url)
             await ctx.send(embed = emb)
 
-#latancy
-@commands.command(aliases = ['latancy', 'ping'] )
-async def пинг(self, ctx):
-    message = (f'Задержка {round(self.bot.latency * 1000)} мс.')
-    embed_odj = discord.Embed(description = message, color= 0x6495ed)
-    await ctx.send(embed = embed_odj)
+    #latancy
+    @commands.command(aliases = ['latancy', 'ping'] )
+    async def пинг(self, ctx):
+        message = (f'Задержка {round(self.bot.latency * 1000)} мс.')
+        embed_odj = discord.Embed(description = message, color= 0x6495ed)
+        await ctx.send(embed = embed_odj)
 
 
 def setup(bot):

@@ -14,7 +14,7 @@ class Fan(commands.Cog):
 	#Cat
 	@commands.command(
 		name= "Коты",
-		aliases = ['Кот', 'кот', 'rjn', 'rjns'],
+		aliases = ['Кот', 'кот', 'rjn', 'rjns', 'коты'],
 		brief= "Выводит изображения котов",
 		usage= "Коты"
 	)

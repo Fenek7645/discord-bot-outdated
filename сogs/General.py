@@ -105,7 +105,7 @@ class General(commands.Cog):
     @commands.has_any_role(601771612701851662, 880893369516187699)  
     async def чистка(self, ctx, amount=1):  
         await ctx.message.channel.purge(limit=amount + 1)
-        embed_odj = discord.Embed(description=f'❌удалено {amount} сообщений❌', color=0x6495ed)
+        embed_odj = discord.Embed(description=f'❌ Вы удалили сообщения ❌', color=0x6495ed)
         await ctx.send(embed=embed_odj)
         await asyncio.sleep(3)
         await ctx.message.channel.purge(limit=1)
