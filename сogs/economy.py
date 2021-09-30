@@ -17,7 +17,7 @@ class Economic(commands.Cog):
         user = message.author
         data = self.collection.find_one({"_id": user.id})
             
-        if data["xp"] == 500 + 100 * data["lvl"]:           
+        if data["xp"] == 500 + 1000 * data["lvl"]:           
             self.collection.update_one({"_id": user.id},     
                 {"$set": {"lvl": data["lvl"] + 1}})
             self.collection.update_one({"_id": user.id},
