@@ -21,7 +21,7 @@ class Economic(commands.Cog):
             self.collection.update_one({"_id": user.id},     
                 {"$set": {"lvl": data["lvl"] + 1}})
             self.collection.update_one({"_id": user.id},
-                {"$set": {"balance": data + 100}})
+                {"$set": {"balance": data["balance"] + 100}})
             self.collection.update_one({"_id": user.id}, 
                 {"$set": {"xp": 0}})
             await channel.send(f"👉{user.mention} + 1️⃣ уровень 👈") 

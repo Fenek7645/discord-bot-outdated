@@ -17,19 +17,25 @@ class sistem(commands.Cog):
         if member == None:
             member = ctx.message.author
             data = self.collection.find_one({"_id": member.id})["balance"]
+            lvl = self.collection.find_one({"_id": member.id})["lvl"]
             emb = discord.Embed(title='Информация', color=0x6495ed)
             emb.add_field(name='Когда присоединися', value=member.joined_at, inline=False)
             emb.add_field(name="Айди", value=member.id, inline=False)
             emb.add_field(name='Имя', value=member.display_name, inline=False)
             emb.add_field(name='Баланс',value=data, inline=False)
+            emb.add_field(name='Уровень',value=lvl, inline=False)
             emb.set_thumbnail(url=member.avatar_url)
             emb.set_footer(text = f'{self.bot.user.name} © 2021', icon_url = self.bot.user.avatar_url)
             await ctx.send(embed = emb)
         else:
+            data = self.collection.find_one({"_id": member.id})["balance"]
+            lvl = self.collection.find_one({"_id": member.id})["lvl"]
             emb = discord.Embed(title='Информация', color=0x6495ed)
             emb.add_field(name='Когда присоединися', value=member.joined_at, inline=False)
             emb.add_field(name="Айди", value=member.id, inline=False)
             emb.add_field(name='Имя', value=member.display_name, inline=False)
+            emb.add_field(name='Баланс',value=data, inline=False)
+            emb.add_field(name='Уровень',value=lvl, inline=False)
             emb.set_thumbnail(url=member.avatar_url)
             emb.set_footer(text = f'{self.bot.user.name} © 2021', icon_url = self.bot.user.avatar_url)
             await ctx.send(embed = emb)
