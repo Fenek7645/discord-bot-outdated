@@ -5,7 +5,7 @@ from pymongo import MongoClient, database
 class Economic(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cluster = MongoClient("mongodb+srv://Fenek7645:9YjL0BCyoUyZqiOA@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
+        self.cluster = MongoClient("mongodb+srv://Fenek7645:qIFXybPrqBECqqcH@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
         self.collection = self.cluster.ecodb.colldb
 
     @commands.Cog.listener()

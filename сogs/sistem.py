@@ -9,7 +9,7 @@ from pymongo import MongoClient
 class sistem(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cluster = MongoClient("mongodb+srv://Fenek7645:9YjL0BCyoUyZqiOA@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
+        self.cluster = MongoClient("mongodb+srv://Fenek7645:qIFXybPrqBECqqcH@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
         self.collection = self.cluster.ecodb.colldb
 
     @commands.command(aliases = ['info'] )

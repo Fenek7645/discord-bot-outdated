@@ -8,7 +8,7 @@ from discord import Activity, ActivityType
 import pymongo
 
 
-clusterr = pymongo.MongoClient("mongodb+srv://Fenek7645:hKHTjZTvCfS7D2fn@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
+clusterr = pymongo.MongoClient("mongodb+srv://Fenek7645:qIFXybPrqBECqqcH@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
 collection = clusterr.ecodb.colldb
  
 
