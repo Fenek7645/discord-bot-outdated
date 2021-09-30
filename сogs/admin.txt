@@ -1,0 +1,116 @@
+import discord
+from discord import guild
+from discord import embeds
+from discord.ext.commands.core import command
+from discord.ext import commands
+from discord.ext.commands import Bot
+import os
+import asyncio
+from pymongo import MongoClient
+
+
+
+class admin(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.cluster = MongoClient("mongodb+srv://Fenek7645:9YjL0BCyoUyZqiOA@cluster0.aujkm.mongodb.net/warns?retryWrites=true&w=majority")
+        self.collusers = self.cluster.warns.collusers
+        self.collservers = self.cluster.warns.collserver
+
+
+
+
+
+    @commands.command(aliases=['варн', 'Варн'])
+    @commands.has_role(858728730822311947)
+    async def warn(self, ctx, member: discord.Member, *, reason='Не указанно'):
+        if self.collusers.find_one({'_id': member.id, 'guild_id': ctx.guild.id})['warns'] >= 3:
+            self.collusers.update_one(
+                {
+                    'id': member.id,
+                    'guild_id': ctx.guild.id
+                },
+                {
+                    '$set': {
+                        'warns': 0,
+                        'reasons': []
+                    }
+                }
+            )
+
+            role = discord.utils.get(ctx.guild.roles, id=858714716012806144)
+            await member.add_roles(role)
+        else:
+            self.collservers.update_one(
+                {
+                    '_id':ctx.guild.id
+                },
+                {
+                    '$inc': {
+                        'case': 1
+                    }
+                }
+            )
+            self.collusers.update_one(
+                {
+                    '_id': member.id,
+                    'guild_id': ctx.guild.id
+                },
+                {
+                    '$inc':{
+                        'warns': 1
+                    },
+                    '$push':{
+                        'reasons': {
+                            'author_id': ctx.author.id,
+                            'case': self.collservers.find_one({'id': ctx.guild.id})['case'],
+                            'reason': reason
+                        }
+                    }
+                }
+            )
+        embed_odj = discord.Embed(description=f'❗️{ctx.author} выдал варн {member}❗️ | айди варна: {self.collservers.find_one({"_id": ctx.guild.id})["case"]}', color=0x6495ed)
+        await ctx.send(embed=embed_odj)
+
+    @commands.command(aliases=['реварн', 'Реварн'])
+    @commands.has_role(858728730822311947)
+    async def rewarn(self, ctx, case: int):
+        if self.collusers.count_documents({'reasons.case': case, 'guild_id': ctx.guild.id}) == 0:
+            embed_odj = discord.Embed(description='💿 Такого варна нет 💿')
+            await ctx.send(embed=embed_odj)
+            
+        else:
+            self.collusers.update_one(
+                {
+                    'reasons.case': case,
+                    'guild_id': ctx.guild.id
+                },
+                {
+                    '$inc':{
+                        'warns:' -1
+                    },
+                    "pull": {
+                        'reasons': {
+                            'case': case
+                        }
+                    }
+                }
+            )
+            embed_odj = discord.Embed(description=f'✅ Варн снят ✅')
+            await ctx.send(embed=embed_odj)
+
+    @commands.command(aliases=['Warninfo', 'warnino'])
+    async def варнинфо(self, ctx , member: discord.Member=None):
+        usr = self.collusers.find_one({"_id": ctx.author.id, 'guild_id': ctx.guild.id})
+        if member is not None:
+            usr = self.collusers.find_one({'_id': member.id, "guild.id": ctx.guild.id})
+        embed = discord.Embed(title='⚔️ Warns ⚔️', color=0x6495ed)
+        for value in usr['reasons']:
+            embed.add_field(name=f'🛡 Админ 🛡: {self.bot.get_user(value["author_id"])}',value=f"📋 Номер варна 📋 {value['case']} \n ⚖️ Причина ⚖️ {value['reason']}", inline=False)
+        await ctx.send(embed=embed)
+
+        
+    
+def setup(bot):
+    bot.add_cog(admin(bot))
+    print('[Cog] admin загружен!')
