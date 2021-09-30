@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands.core import check
 from pymongo import MongoClient, database
 
 class Economic(commands.Cog):
@@ -12,19 +13,21 @@ class Economic(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user and message.channel.id == 800342728935997470:
             return
-        
+        lvl = self.collection.find_one({"_id": user.id})["lvl"]
         channel = discord.utils.get(message.guild.channels, id=882175028295262248)
         user = message.author
         data = self.collection.find_one({"_id": user.id})
             
-        if data["xp"] == 500 + 1000 * data["lvl"]:           
+
+
+        if data["xp"] == 500 + 100 * data["lvl"]:           
             self.collection.update_one({"_id": user.id},     
                 {"$set": {"lvl": data["lvl"] + 1}})
             self.collection.update_one({"_id": user.id},
                 {"$set": {"balance": data["balance"] + 100}})
             self.collection.update_one({"_id": user.id}, 
                 {"$set": {"xp": 0}})
-            await channel.send(f"👉{user.mention} + 1️⃣ уровень 👈") 
+            await channel.send(f"👉 **{user.mention} Ты получил {lvl}** 👈")
         else:
             self.collection.update_one({"_id": user.id},
                 {"$set": {"xp": data["xp"] + 50}})

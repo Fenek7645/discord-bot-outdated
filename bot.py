@@ -44,12 +44,14 @@ async def on_member_join(member):
 	file = discord.File("hi.gif")
 	channel = bot.get_channel(791709222937034752)
 	role_1 = member.guild.get_role(role_id=601762430024155155)
+	role_2 = member.guild.get_role(role_id=880886540543328267)
 	emb = discord.Embed(title='Новый учасник', color=0x6495ed)
 	emb.add_field(name='Имя', value=member.mention, inline=False)
 	emb.set_image(url="attachment://hi.gif")
 	emb.set_thumbnail(url=member.avatar_url)
 	emb.set_footer(text = f'{bot.user.name} © 2021', icon_url = bot.user.avatar_url)
 	await member.add_roles(role_1)
+	await member.add_roles(role_2)
 	await channel.send(embed = emb, file=file)
 	post = {
 		"_id": member.id,
