@@ -17,7 +17,7 @@ bot = commands.Bot(command_prefix = settings['prefix'], intents=discord.Intents.
 bot.remove_command('help')
 
 
-for filename in os.listdir(".\сogs"):
+for filename in os.listdir("./сogs"):
 	if filename.endswith(".py"):
 		bot.load_extension(f"сogs.{filename[:-3]}")
 
