@@ -11,7 +11,7 @@ class sistem(commands.Cog):
         self.bot = bot
         self.cluster = MongoClient("mongodb+srv://Fenek7645:qIFXybPrqBECqqcH@cluster0.aujkm.mongodb.net/ecodb?retryWrites=true&w=majority")
         self.collection = self.cluster.ecodb.colldb
-        self.role_message_id = 882310245504942081 # ID of the message that can be reacted to to add/remove a role.
+        self.role_message_id = 893469618998489108 # ID of the message that can be reacted to to add/remove a role.
         self.emoji_to_role = {
             discord.PartialEmoji(name='⛏'): 880919466463088662,
             discord.PartialEmoji(name='🕯'): 880895891546968074,
