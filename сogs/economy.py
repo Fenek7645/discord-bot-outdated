@@ -13,10 +13,11 @@ class Economic(commands.Cog):
     async def on_message(self, message):
         if message.author == self.bot.user and message.channel.id == 800342728935997470:
             return
-        lvl = self.collection.find_one({"_id": user.id})["lvl"]
+            
         channel = discord.utils.get(message.guild.channels, id=882175028295262248)
         user = message.author
         data = self.collection.find_one({"_id": user.id})
+        lvl = self.collection.find_one({"_id": user.id})["lvl"]
             
 
 
@@ -30,7 +31,7 @@ class Economic(commands.Cog):
             await channel.send(f"👉 **{user.mention} Ты получил {lvl}** 👈")
         else:
             self.collection.update_one({"_id": user.id},
-                {"$set": {"xp": data["xp"] + 50}})
+                {"$set": {"xp": data["xp"] + 5}})
 
 
     @commands.command(
